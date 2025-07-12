@@ -1,10 +1,25 @@
 import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './pages/Home'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+
+
+const routes = (
+  <Router>
+    <Routes>
+      <Route path="/dashboard" exact element={<Home />} />
+      <Route path="/login" exact element={<Login />} />
+      <Route path="/signup" exact element={<Signup />} />
+    </Routes>
+  </Router>
+);
 
 const App = () => {
   return (
-    <div className='text-amber-300 text-center text-4xl text-bold text-shadow-blue-950 border-4'>
-      hello
-    </div>
+    <div>
+      {routes}
+    </div> 
   )
 }
 
