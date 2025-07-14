@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import NoteCard from '../components/NoteCard';
 import { MdAdd } from 'react-icons/md';
@@ -13,7 +13,7 @@ const Home = () => {
     });
     return (
         <>
-            <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-zinc-800 text-white">
+            <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-zinc-800  text-white">
                 <Navbar />
                 <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4 mt-8">
                     <NoteCard
@@ -42,16 +42,25 @@ const Home = () => {
                 <Modal
                     isOpen={openAddEditModal.isShown}
                     onRequestClose={() => { }}
+                    appElement={document.getElementById('root')}
                     style={{
                         overlay: {
                             backgroundColor: "rgba(0,0,0,0.2)",
                         },
                     }}
-                    contentLabel="" 
-                    className="w-[40%] max-h-3/4 bg-gradient-to-br from-white via-zinc-950 to-zinc-700 rounded-md mx-auto mt-14 p-5 overflow-scroll" 
+                    contentLabel=""
+                    className="w-[500px] max-h-[70vh] mx-auto mt-20 p-6 rounded-xl bg-zinc-900 border border-emerald-500 shadow-[0_0_25px_rgba(34,197,94,0.6)] overflow-hidden transition-all duration-300"
                 >
-                    <AddEditNotes />
+                    <AddEditNotes
+                        type={openAddEditModal.type}
+                        noteData={openAddEditModal.data}
+                        onClose={() => {
+                            setOpenAddEditModal({ isShown: false, type: "add", data: null });
+                        }}
+                    />
                 </Modal>
+
+
             </div>
         </>
     );
