@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import Modal from "react-modal";
 import axiosInstance from '../utils/axiosInstance';
 import Toast from '../components/Toast';
+import EmptyCard from '../components/EmptyCard';
+import no_data from '../assets/images/no_data.svg';
+import no_search from '../assets/images/no_search.svg';
+
 
 const Home = () => {
     const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -23,6 +27,8 @@ const Home = () => {
 
     const [allNotes, setAllNotes] = useState([]);
     const [userInfo, setUserInfo] = useState(null);
+
+    const [isSearch, setIsSearch] = useState(false);
 
     const navigate = useNavigate();
 
@@ -81,7 +87,48 @@ const Home = () => {
                 console.log("An unexpected error occured.");
             }
         }
+    };
+
+    //Search note
+    const onSearchNote = async (query) =>{
+        try{
+            const response =await axiosInstance.get("/search-note",{
+                params:{query},
+            });
+
+            if(response.data && response.data.notes){
+                setIsSearch(true);
+                setAllNotes(response.data.notes);
+            }
+
+        }catch(error){
+        console.log(error);
     }
+    };
+
+    //Pinned update
+    const updateIsPinned = async (note) => {
+    const noteId = note._id;
+
+    try {
+        const response = await axiosInstance.put("/update-note-pinned/" + noteId, {
+            isPinned: !note.isPinned, // toggle the pin
+        });
+
+        if (response.data && response.data.note) {
+            showToastMessage("NOTE PIN STATUS UPDATED", "update");
+            getAllNotes();
+        }
+    } catch (error) {
+        console.log("Error updating pin:", error);
+    }
+};
+    
+
+    const handleClearSearch = async (query) =>{
+        setIsSearch(false);
+        getAllNotes();
+    };
 
     useEffect(() => {
         getAllNotes();
@@ -92,8 +139,8 @@ const Home = () => {
     return (
         <>
             <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-zinc-800  text-white">
-                <Navbar userInfo={userInfo} />
-                <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4 mt-8">
+                <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
+                {allNotes.length > 0 ? <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4 mt-8">
                     {allNotes.map((item, index) => (
                         <NoteCard
                             key={item._id}
@@ -104,10 +151,10 @@ const Home = () => {
                             isPinned={item.isPinned}
                             onEdit={() => handleEdit(item)}
                             onDelete={() => deleteNote(item)}
-                            onPinNote={() => { }}
+                            onPinNote={() => updateIsPinned(item)}
                         />
                     ))}
-                </div>
+                </div> : <EmptyCard imgSrc={isSearch ? no_search : no_data} message={isSearch ? `Oops! No data found`:`Start Creating Your First Note! Click 'Add' button and Let's Get Started! `} />}
 
 
                 <button
