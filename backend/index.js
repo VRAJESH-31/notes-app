@@ -110,6 +110,7 @@ app.post("/login", async (req, res) => {
     }
 });
 
+
 //get user
 app.get("/get-user", authenticateToken, async (req, res) => {
     const { user } = req.user;
@@ -130,6 +131,7 @@ app.get("/get-user", authenticateToken, async (req, res) => {
         message: "",
     });
 });
+
 
 //Add note
 app.post("/add-note", authenticateToken, async (req, res) => {
@@ -165,6 +167,7 @@ app.post("/add-note", authenticateToken, async (req, res) => {
         });
     }
 });
+
 
 //Edit note
 app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
@@ -205,6 +208,7 @@ app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
     }
 });
 
+
 //Get all notes
 app.get("/get-all-notes", authenticateToken, async (req, res) => {
     const { user } = req.user;
@@ -224,6 +228,7 @@ app.get("/get-all-notes", authenticateToken, async (req, res) => {
         });
     }
 });
+
 
 //Delete note
 app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
@@ -250,6 +255,7 @@ app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
         });
     }
 });
+
 
 //Update pinned note
 app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
@@ -281,6 +287,7 @@ app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
     }
 });
 
+
 //Search notes
 app.get("/search-note/", authenticateToken, async (req, res) => { 
     const { user } = req.user;
@@ -311,6 +318,7 @@ app.get("/search-note/", authenticateToken, async (req, res) => {
         });
     }
 });
+
 
 app.listen(8000);
 module.exports = app;

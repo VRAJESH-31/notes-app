@@ -131,10 +131,14 @@ const Home = () => {
     };
 
     useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        navigate("/");
+    } else {
         getAllNotes();
         getUserInfo();
-        return () => { };
-    }, []);
+    }
+}, []);
 
     return (
         <>
