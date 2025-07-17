@@ -4,14 +4,6 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const Landing = () => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            navigate("/dashboard");
-        }
-    }, [navigate]);
 
     return (
         <div className="w-full min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-emerald-900 p-4 md:p-8 text-white font-[Open Sans]">
