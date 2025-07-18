@@ -41,9 +41,6 @@ const navigate = useNavigate();
                             <button onClick={() => navigate("/signup")} className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-emerald-500/25 font-semibold text-lg">
                                 Get Started Free
                             </button>
-                            <button className="px-8 py-4 border-2 border-zinc-600 text-zinc-300 rounded-lg hover:border-emerald-400 hover:text-emerald-400 transition-all duration-300 font-semibold text-lg">
-                                Watch Demo
-                            </button>
                         </div>
                         <div className="flex items-center space-x-8 pt-8">
                             <div className="text-center">

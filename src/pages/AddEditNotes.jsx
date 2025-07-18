@@ -3,7 +3,7 @@ import TagInput from '../components/TagInput';
 import { MdClose } from "react-icons/md";
 import axiosInstance from '../utils/axiosInstance';
 
-const AddEditNotes = ({ noteData, type, getAllNotes, onClose , showToastMessage }) => {
+const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }) => {
     const [title, setTitle] = useState(noteData?.title || "");
     const [content, setContent] = useState(noteData?.content || "");
     const [tags, setTags] = useState(noteData?.tags || []);
@@ -76,7 +76,8 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose , showToastMessage 
     };
 
     return (
-        <div className="relative w-full max-w-xl bg-zinc-900 border border-emerald-600 p-5 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.4)] text-white">
+        <div className="relative w-full max-w-xl bg-zinc-900 border border-emerald-600 p-5 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.4)] text-white 
+    sm:max-w-lg xs:max-w-full xs:p-4">
 
             {/* Close Button */}
             <button
@@ -127,6 +128,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose , showToastMessage 
                 </button>
             </div>
         </div>
+
     );
 };
 

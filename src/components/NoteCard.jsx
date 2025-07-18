@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPinNote }) => {
     return (
-        <div className="w-80 bg-zinc-800 border border-zinc-700 rounded-md shadow-xl shadow-emerald-500/40 px-4 py-3 text-white text-sm">
+        <div className="w-full sm:w-72 md:w-80 bg-zinc-800 border border-zinc-700 rounded-md shadow-xl shadow-emerald-500/40 px-4 py-3 text-white text-sm">
             <div className="flex justify-between items-start mb-2">
                 <div>
                     <h6 className="text-base font-semibold text-white">{title}</h6>
@@ -23,7 +23,9 @@ const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
             </p>
 
             <div className="flex justify-between items-center">
-                <span className="text-xs text-amber-300">{tags.map((item)=> `#${item}`)}</span>
+                <span className="text-xs text-amber-300 break-all">
+                    {tags.map((item) => `#${item} `)}
+                </span>
                 <div className="flex items-center gap-3">
                     <MdCreate
                         size={16}

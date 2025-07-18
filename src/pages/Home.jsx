@@ -90,85 +90,94 @@ const Home = () => {
     };
 
     //Search note
-    const onSearchNote = async (query) =>{
-        try{
-            const response =await axiosInstance.get("/search-note",{
-                params:{query},
+    const onSearchNote = async (query) => {
+        try {
+            const response = await axiosInstance.get("/search-note", {
+                params: { query },
             });
 
-            if(response.data && response.data.notes){
+            if (response.data && response.data.notes) {
                 setIsSearch(true);
                 setAllNotes(response.data.notes);
             }
 
-        }catch(error){
-        console.log(error);
-    }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     //Pinned update
     const updateIsPinned = async (note) => {
-    const noteId = note._id;
+        const noteId = note._id;
 
-    try {
-        const response = await axiosInstance.put("/update-note-pinned/" + noteId, {
-            isPinned: !note.isPinned, // toggle the pin
-        });
+        try {
+            const response = await axiosInstance.put("/update-note-pinned/" + noteId, {
+                isPinned: !note.isPinned, // toggle the pin
+            });
 
-        if (response.data && response.data.note) {
-            showToastMessage("NOTE PIN STATUS UPDATED", "update");
-            getAllNotes();
+            if (response.data && response.data.note) {
+                showToastMessage("NOTE PIN STATUS UPDATED", "update");
+                getAllNotes();
+            }
+        } catch (error) {
+            console.log("Error updating pin:", error);
         }
-    } catch (error) {
-        console.log("Error updating pin:", error);
-    }
-};
-    
+    };
 
-    const handleClearSearch = async (query) =>{
+
+    const handleClearSearch = async (query) => {
         setIsSearch(false);
         getAllNotes();
     };
 
     useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        navigate("/");
-    } else {
-        getAllNotes();
-        getUserInfo();
-    }
-}, []);
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/");
+        } else {
+            getAllNotes();
+            getUserInfo();
+        }
+    }, []);
 
     return (
         <>
             <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-zinc-800  text-white">
                 <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
-                {allNotes.length > 0 ? <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4 mt-8">
-                    {allNotes.map((item, index) => (
-                        <NoteCard
-                            key={item._id}
-                            title={item.title}
-                            date={item.createdOn}
-                            content={item.content}
-                            tags={item.tags}
-                            isPinned={item.isPinned}
-                            onEdit={() => handleEdit(item)}
-                            onDelete={() => deleteNote(item)}
-                            onPinNote={() => updateIsPinned(item)}
-                        />
-                    ))}
-                </div> : <EmptyCard imgSrc={isSearch ? no_search : no_data} message={isSearch ? `Oops! No data found`:`Start Creating Your First Note! Click 'Add' button and Let's Get Started! `} />}
-
+                {allNotes.length > 0 ? (
+                    <div className="container mx-auto px-4 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+                        {allNotes.map((item, index) => (
+                            <NoteCard
+                                key={item._id}
+                                title={item.title}
+                                date={item.createdOn}
+                                content={item.content}
+                                tags={item.tags}
+                                isPinned={item.isPinned}
+                                onEdit={() => handleEdit(item)}
+                                onDelete={() => deleteNote(item)}
+                                onPinNote={() => updateIsPinned(item)}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <EmptyCard
+                        imgSrc={isSearch ? no_search : no_data}
+                        message={
+                            isSearch
+                                ? `Oops! No data found`
+                                : `Start Creating Your First Note! Click 'Add' button and Let's Get Started! `
+                        }
+                    />
+                )}
 
                 <button
-                    className="w-16 h-16 fixed bottom-6 right-6 z-50 flex items-center justify-center rounded-full bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-400/10 text-white transition duration-300"
+                    className="w-14 h-14 sm:w-16 sm:h-16 fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 flex items-center justify-center rounded-full bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-400/10 text-white transition duration-300"
                     onClick={() => {
                         setOpenAddEditModal({ isShown: true, type: "add", data: null });
-
                     }}
                 >
-                    <MdAdd className="text-3xl" />
+                    <MdAdd className="text-2xl sm:text-3xl" />
                 </button>
 
                 <Modal
@@ -181,7 +190,7 @@ const Home = () => {
                         },
                     }}
                     contentLabel=""
-                    className="w-[500px] max-h-[70vh] mx-auto mt-20 p-6 rounded-xl bg-zinc-900 border border-emerald-500 shadow-[0_0_25px_rgba(34,197,94,0.6)] overflow-hidden transition-all duration-300"
+                    className="w-[90%] max-w-lg max-h-[80vh] mx-auto mt-10 sm:mt-20 p-4 sm:p-6 rounded-xl bg-zinc-900 border border-emerald-500 shadow-[0_0_25px_rgba(34,197,94,0.6)] overflow-auto transition-all duration-300"
                 >
                     <AddEditNotes
                         type={openAddEditModal.type}
