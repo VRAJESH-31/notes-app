@@ -51,7 +51,8 @@ const Login = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-zinc-800 text-white">
-            <Navbar />
+            <Navbar onlyTitle={true} />
+
 
             <div className="flex items-center justify-center pt-28">
                 <div className="w-96 border border-zinc-700 rounded bg-zinc-800 px-10 py-8

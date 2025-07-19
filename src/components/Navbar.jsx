@@ -3,7 +3,7 @@ import ProfileInfo from './ProfileInfo';
 import { useNavigate } from "react-router-dom";
 import SearchBar from './SearchBar';
 
-const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
+const Navbar = ({ userInfo, onSearchNote, handleClearSearch, onlyTitle = false }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate();
 
@@ -23,6 +23,13 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
         handleClearSearch()
     }
 
+    if (onlyTitle) {
+        return (
+            <div className='bg-zinc-950 px-4 sm:px-6 py-3 sm:py-2 drop-shadow text-white'>
+                <h2 className="text-xl font-medium w-full text-center sm:w-auto sm:text-left">NOTESFLOW</h2>
+            </div>
+        );
+    }
     return (
         <div className='bg-zinc-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 px-4 sm:px-6 py-3 sm:py-2 drop-shadow text-white'>
             <h2 className="text-xl font-medium w-full text-center sm:w-auto sm:text-left">NOTESFLOW</h2>
