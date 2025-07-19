@@ -42,20 +42,7 @@ const navigate = useNavigate();
                                 Get Started Free
                             </button>
                         </div>
-                        <div className="flex items-center space-x-8 pt-8">
-                            <div className="text-center">
-                                <div className="text-2xl font-bold text-emerald-400">50K+</div>
-                                <div className="text-zinc-400">Active Users</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-2xl font-bold text-emerald-400">1M+</div>
-                                <div className="text-zinc-400">Notes Created</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-2xl font-bold text-emerald-400">99.9%</div>
-                                <div className="text-zinc-400">Uptime</div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     {/* Right Section Note Card UI */}
